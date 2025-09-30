@@ -1,0 +1,7 @@
+build
+build_*
+docker_build
+compile_commands.json
+.clangd
+.vscode
+.cache

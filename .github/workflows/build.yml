@@ -1,0 +1,31 @@
+on: [push]
+
+jobs:
+    build:
+
+      runs-on: ubuntu-latest
+
+      env:
+        ROOT_DIR: ${{ github.workspace }}
+
+      name: build
+      steps:
+        - name: Checkout repo
+          uses: actions/checkout@v4
+          with:
+            submodules: 'recursive'
+
+        - name: Run Docker
+          run: ./kvasir/scripts/run_container.sh
+
+        - name: Upload firmware
+          uses: actions/upload-artifact@v4
+          with:
+            name: firmware
+            path: |
+              docker_build/*.bin
+              docker_build/*.hex
+              docker_build/*.elf
+              docker_build/*.uf2
+              docker_build/*.lst
+              docker_build/*.map
